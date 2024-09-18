@@ -4,15 +4,13 @@ $num2 = rand(1, 100);
 
 $suma = $num1 + $num2;
 $resta = $num1 - $num2;
-$division = $num1 / $num2;
-$multiplicacion = $num1 * $num2;
+$div = $num1 / $num2;
 
 echo "Valor de num1: $num1 <br>";
 echo "Valor de num2: $num2 <br>";
 echo "Suma: $suma <br>";
 echo "Resta: $resta <br>";
-echo "Multiplicación: $multiplicacion <br>";
-echo "División: $division <br><br>";
+echo "División: $div <br><br>";
 
 if ($num1 > $num2) {
     echo "$num1 es mayor que $num2 <br>";
