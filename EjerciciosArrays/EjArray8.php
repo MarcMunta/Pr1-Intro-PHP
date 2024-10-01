@@ -12,7 +12,7 @@ echo "<b>Ejercicio 8</b><br><br>";
 $mejor_alumno = "";
 $nota_mas_alta = 0;
 
-foreach ($array2 as $alumno => $nota) {
+foreach ($array as $alumno => $nota) {
     if ($nota > $nota_mas_alta) {
         $nota_mas_alta = $nota;
         $mejor_alumno = $alumno;
