@@ -1,35 +1,35 @@
-<?php
+ri<?php
 session_start();
 
 // Inicializar los productos si no están establecidos
-if (!isset($_SESSION['inventory'])) {
-    $_SESSION['inventory'] = [
+if (!isset($_SESSION['inventario'])) {
+    $_SESSION['inventario'] = [
         'milk' => 3,
         'soft_drink' => 0
     ];
 }
 
 // Inicializar el nombre del trabajador si no está establecido
-if (!isset($_SESSION['worker'])) {
-    $_SESSION['worker'] = 'pere';
+if (!isset($_SESSION['trabajador'])) {
+    $_SESSION['trabajador'] = 'pere';
 }
 
 // Procesar la acción del formulario
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $product = $_POST['product'];
-    $quantity = intval($_POST['quantity']);
-    $action = $_POST['action'];
+    $cantidad = $_POST['producto'];
+    $cantidad = intval($_POST['cantidad']);
+    $action = $_POST['accion'];
 
-    if ($action == 'add') {
-        $_SESSION['inventory'][$product] += $quantity;
-    } elseif ($action == 'remove') {
-        if ($_SESSION['inventory'][$product] >= $quantity) {
-            $_SESSION['inventory'][$product] -= $quantity;
+    if ($accion == 'add') {
+        $_SESSION['inventario'][$producto] += $cantidad;
+    } elseif ($accion == 'remove') {
+        if ($_SESSION['inventario'][$producto] >= $cantidad) {
+            $_SESSION['inventario'][$producto] -= $cantidad;
         } else {
             $error = "Error: No se pueden quitar más unidades de las que hay en el inventario.";
         }
     } elseif ($action == 'reset') {
-        $_SESSION['inventory'][$product] = 0;
+        $_SESSION['inventario'][$product] = 0;
     }
 }
 ?>
@@ -44,31 +44,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <!-- Mostrar el nombre del trabajador -->
     <form method="post">
-        <label for="worker"><b>Worker name:</b><br></label>
-        <input type="text" name="worker" value="<?php echo $_SESSION['worker']; ?>" readonly><br><br>
+        <label for="trabajador"><b>Worker name:</b><br></label>
+        <input type="text" name="trabajador" value="<?php echo $_SESSION['trabajador']; ?>" readonly><br><br>
 
         <!-- Seleccionar el producto -->
-        <label for="product"><b>Choose product:</b><br></label>
-        <select name="product">
+        <label for="producto"><b>Choose product:</b><br></label>
+        <select name="producto">
             <option value="milk">Milk</option>
             <option value="soft_drink">Soft Drink</option>
         </select><br><br>
 
         <!-- Cantidad de productos -->
-        <label for="quantity"><b>Product quantity:</b><br></label>
-        <input type="number" name="quantity" min="1" required><br><br>
+        <label for="cantidad"><b>Product quantity:</b><br></label>
+        <input type="number" name="cantidad" min="1" required><br><br>
 
         <!-- Botones de acción -->
-        <button type="submit" name="action" value="add">add</button>
-        <button type="submit" name="action" value="remove">remove</button>
-        <button type="submit" name="action" value="reset">reset</button>
+        <button type="submit" name="accion" value="add">add</button>
+        <button type="submit" name="accion" value="remove">remove</button>
+        <button type="submit" name="accion" value="reset">reset</button>
     </form>
 
     <!-- Mostrar el inventario -->
     <h3>Inventory:</h3>
-    <p>worker: <?php echo $_SESSION['worker']; ?></p>
-    <p>units milk: <?php echo $_SESSION['inventory']['milk']; ?></p>
-    <p>units soft drink: <?php echo $_SESSION['inventory']['soft_drink']; ?></p>
+    <p>worker: <?php echo $_SESSION['trabajador']; ?></p>
+    <p>units milk: <?php echo $_SESSION['inventario']['milk']; ?></p>
+    <p>units soft drink: <?php echo $_SESSION['inventario']['soft_drink']; ?></p>
 
     <!-- Mostrar error si hay -->
     <?php if (isset($error)) {
