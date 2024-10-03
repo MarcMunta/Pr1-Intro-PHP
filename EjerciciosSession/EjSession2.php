@@ -8,23 +8,23 @@ if (!isset($_SESSION['array'])) {
 
 // Procesar las acciones del formulario
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['action'])) {
-        $action = $_POST['action'];
-        $position = intval($_POST['position']);
+    if (isset($_POST['accion'])) {
+        $accion = $_POST['accion'];
+        $posicion= intval($_POST['posicion']);
         $new_value = isset($_POST['new_value']) ? intval($_POST['new_value']) : null;
 
         // Modificar el valor en la posición seleccionada
-        if ($action == 'Modify' && $new_value !== null) {
-            $_SESSION['array'][$position] = $new_value;
+        if ($accion == 'Modify' && $new_value !== null) {
+            $_SESSION['array'][$posicion] = $new_value;
         }
 
         // Calcular la media
-        if ($action == 'Average') {
-            $average = array_sum($_SESSION['array']) / count($_SESSION['array']);
+        if ($accion == 'Average') {
+            $media = array_sum($_SESSION['array']) / count($_SESSION['array']);
         }
 
         // Resetear el array a los valores originales
-        if ($action == 'Reset') {
+        if ($accion == 'Reset') {
             $_SESSION['array'] = [10, 20, 30];
         }
     }
@@ -41,8 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <!-- Formulario -->
     <form method="post">
-        <label for="position">Position to modify: </label>
-        <select name="position">
+        <label for="posicion">Position to modify: </label>
+        <select name="posicion">
             <?php
             foreach ($_SESSION['array'] as $index => $value) {
                 echo "<option value='$index'>$index</option>";
@@ -54,9 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="number" name="new_value"><br><br>
 
         <!-- Botones de acción -->
-        <button type="submit" name="action" value="Modify">Modify</button>
-        <button type="submit" name="action" value="Average">Average</button>
-        <button type="submit" name="action" value="Reset">Reset</button>
+        <button type="submit" name="accion" value="Modify">Modify</button>
+        <button type="submit" name="accion" value="Average">Average</button>
+        <button type="submit" name="accion" value="Reset">Reset</button>
     </form>
 
     <br>
@@ -64,8 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <p>Current array: <?php echo implode(", ", $_SESSION['array']); ?></p>
 
     <!-- Mostrar la media si fue calculada -->
-    <?php if (isset($average)) {
-        echo "<p>Average: " . number_format($average, 2) . "</p>";
+    <?php if (isset($media)) {
+        echo "<p>Average: " . number_format($media, 2) . "</p>";
     } ?>
 </body>
 </html>
