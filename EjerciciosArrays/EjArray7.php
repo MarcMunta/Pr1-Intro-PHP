@@ -11,7 +11,7 @@ $suma_valores = 0;
 $count = 0;        
 echo "<b>Ejercicio 7</b><br><br>";
 
-foreach ($array2 as $clau => $valor) {
+foreach($array as $clau => $valor) {
     $suma_valores += $valor;
     $count++;                
 }
@@ -19,7 +19,7 @@ $media = $suma_valores / $count;
 $media_2DC = number_format($media, 2);
 echo "Media de las notas: $media_2DC<br>";
 echo "Alumnos con nota por encima de la media:<br>";
-foreach($array2 as $clau => $valor){
+foreach($array as $clau => $valor){
  if($media < $valor){
  echo $clau.": ".$valor."<br>";
  }
