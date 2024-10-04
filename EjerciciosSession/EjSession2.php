@@ -1,29 +1,29 @@
 <?php
 session_start();
 
-// Inicializar el array si no está establecido
+//Inicializar el array si no está establecido
 if (!isset($_SESSION['array'])) {
     $_SESSION['array'] = [10, 20, 30];
 }
 
-// Procesar las acciones del formulario
+//Procesar las acciones del formulario
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['accion'])) {
         $accion = $_POST['accion'];
-        $posicion= intval($_POST['posicion']);
+        $posicion = intval($_POST['posicion']);
         $new_value = isset($_POST['new_value']) ? intval($_POST['new_value']) : null;
 
-        // Modificar el valor en la posición seleccionada
+        //Modificar el valor en la posición seleccionada
         if ($accion == 'Modify' && $new_value !== null) {
             $_SESSION['array'][$posicion] = $new_value;
         }
 
-        // Calcular la media
+        //Calcular la media
         if ($accion == 'Average') {
             $media = array_sum($_SESSION['array']) / count($_SESSION['array']);
         }
 
-        // Resetear el array a los valores originales
+        //Resetear el array a los valores originales
         if ($accion == 'Reset') {
             $_SESSION['array'] = [10, 20, 30];
         }
@@ -38,8 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
     <h1>Modify array saved in session</h1>
-
-    <!-- Formulario -->
     <form method="post">
         <label for="posicion">Position to modify: </label>
         <select name="posicion">
@@ -49,23 +47,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             ?>
         </select><br><br>
-
         <label for="new_value">New value: </label>
         <input type="number" name="new_value"><br><br>
-
-        <!-- Botones de acción -->
         <button type="submit" name="accion" value="Modify">Modify</button>
         <button type="submit" name="accion" value="Average">Average</button>
         <button type="submit" name="accion" value="Reset">Reset</button>
-    </form>
-
-    <br>
-    <!-- Mostrar el array actual -->
+    </form><br>
     <p>Current array: <?php echo implode(", ", $_SESSION['array']); ?></p>
 
-    <!-- Mostrar la media si fue calculada -->
     <?php if (isset($media)) {
         echo "<p>Average: " . number_format($media, 2) . "</p>";
     } ?>
+
 </body>
 </html>
