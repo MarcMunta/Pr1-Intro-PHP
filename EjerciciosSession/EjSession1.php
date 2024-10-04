@@ -1,4 +1,4 @@
-ri<?php
+<?php
 session_start();
 
 // Inicializar los productos si no están establecidos
